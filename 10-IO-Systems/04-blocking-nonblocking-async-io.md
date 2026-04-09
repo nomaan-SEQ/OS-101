@@ -56,7 +56,7 @@ Worker Thread:
 
 ## Model 2: Non-blocking I/O
 
-Set a file descriptor to non-blocking mode. `read()` returns **immediately** -- either with data or with an error saying "nothing available yet."
+Set a file descriptor to non-blocking mode. `read()` returns **immediately** -- either with data or with an error code **EAGAIN** (meaning "try again" -- the operation would have blocked, but there is no data available right now; this is not a real error, just a signal to retry later).
 
 ```
 Thread              Kernel              Device

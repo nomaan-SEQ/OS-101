@@ -66,7 +66,7 @@ These operations are **privileged** and will cause a CPU exception if attempted 
 | Modify page tables | Could access any process's memory |
 | Disable interrupts | Could lock up the entire system |
 | Halt the CPU | Would freeze the machine |
-| Load new GDT/IDT | Could subvert the protection mechanism itself |
+| Load new GDT/IDT | Could subvert the protection mechanism itself. **GDT** (Global Descriptor Table) defines memory segments; **IDT** (Interrupt Descriptor Table) maps interrupt numbers to handler addresses. |
 | Write to model-specific registers | Could alter CPU behavior |
 
 ## How the Transition Happens
@@ -153,7 +153,7 @@ This overhead is why:
 ## Real-World Connections
 
 ### Why Your App Can't Crash the OS
-Your application runs in user mode. Even if it has a bug and tries to write to address `0x0000`, the **hardware** (MMU) catches this in user mode and triggers a trap. The kernel handles the trap by killing your process — not by crashing.
+Your application runs in user mode. The **MMU (Memory Management Unit)** is a hardware component in the CPU that translates virtual addresses to physical addresses and enforces memory protection. Even if your app has a bug and tries to write to address `0x0000`, the MMU catches this in user mode and triggers a trap. The kernel handles the trap by killing your process — not by crashing.
 
 ### Why Device Drivers Are Dangerous
 In Linux, device drivers run in **kernel mode** (Ring 0). A buggy driver has full access to all memory and hardware. This is why driver bugs are the #1 cause of kernel crashes (blue screen / kernel panic).
@@ -162,7 +162,7 @@ In Linux, device drivers run in **kernel mode** (Ring 0). A buggy driver has ful
 Containers share the **same kernel**. All container processes are in user mode, making system calls to the same kernel. A kernel exploit in one container compromises all containers on the host. VMs, by contrast, have separate kernels.
 
 ### Why Spectre/Meltdown Was a Big Deal
-These vulnerabilities allowed user-mode code to **read kernel-mode memory** through CPU speculative execution bugs. They broke the fundamental user/kernel boundary at the hardware level, requiring OS-level mitigations (KPTI) that added ~5% overhead to system calls.
+These vulnerabilities allowed user-mode code to **read kernel-mode memory** through CPU speculative execution bugs. They broke the fundamental user/kernel boundary at the hardware level, requiring OS-level mitigations (KPTI — **Kernel Page Table Isolation**, which unmaps kernel memory when running in user mode) that added ~5% overhead to system calls.
 
 ## Interview Angle
 

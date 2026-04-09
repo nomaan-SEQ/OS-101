@@ -6,6 +6,8 @@ Where threads are managed -- in user space or in the kernel -- fundamentally det
 
 User-level threads are managed entirely by a library in user space. The kernel has no idea they exist. As far as the kernel is concerned, there's just one process (with one schedulable entity).
 
+> **Analogy:** Think of user-level threads like employees in an office that has only one phone line to the outside world (the kernel). A floor manager (the thread library) juggles who gets to work when, but to anyone calling in, it looks like one office. If one employee ties up the phone line with a long call (a blocking syscall), nobody else can make calls until it's free.
+
 ```
 USER SPACE                          KERNEL SPACE
 ┌─────────────────────────┐         ┌──────────────────┐
@@ -55,6 +57,8 @@ User threads T1, T2, T3 (one kernel thread):
 ```
 
 The kernel doesn't know about T2 and T3. It just sees one process blocked on I/O. There's no way to run the other user threads while T1 waits.
+
+> **Analogy:** User-level threads sharing one kernel thread are like multiple people sharing a single phone line. If one person is on a long call (blocked), nobody else can make calls -- even if they're ready to talk.
 
 ### Other Limitations
 

@@ -82,7 +82,7 @@ This is one of the most important flows to understand. Walk through it layer by 
 
 **Steps 1-3: Hardware**. The NIC uses DMA (Direct Memory Access) to copy frames directly into a ring buffer in kernel memory — no CPU involvement for the copy itself. Then the NIC fires a hardware interrupt.
 
-**Steps 4-6: Driver + NAPI**. The interrupt handler is minimal — it disables further interrupts from the NIC and schedules a softirq. NAPI (New API) then polls the ring buffer in batches, processing multiple packets per softirq invocation. This is critical for performance: without NAPI, a flood of packets would cause an interrupt storm.
+**Steps 4-6: Driver + NAPI**. The interrupt handler is minimal -- it disables further interrupts from the NIC and schedules a softirq. **NAPI (New API)** is a hybrid interrupt/polling mechanism for network drivers. When a packet arrives, the NIC triggers an interrupt. But instead of firing an interrupt for every subsequent packet (which would overwhelm the CPU at high rates), NAPI switches to polling mode — the kernel periodically checks for new packets in a batch. Once the burst subsides, it switches back to interrupt mode. This adaptive approach prevents interrupt storms while maintaining low latency during light traffic.
 
 **Steps 7-9: IP layer**. Routing, fragmentation reassembly, and the first Netfilter hook points (PREROUTING).
 
@@ -129,6 +129,8 @@ Application calls send()
 ```
 
 Notice step 2: `send()` returning does NOT mean data reached the network. It means data was copied to the kernel socket buffer. TCP decides when to actually transmit based on Nagle's algorithm, the congestion window, and the receive window.
+
+> **Analogy for Nagle's algorithm:** Nagle's algorithm is like a postal worker who waits at your mailbox -- instead of making a trip to the post office for every single letter, they collect letters for a short time and deliver them all in one batch. This is efficient for bulk mail, but terrible when you need an urgent reply and the postal worker is sitting on your letter waiting for more.
 
 ## sk_buff: The Kernel's Packet Data Structure
 

@@ -148,7 +148,7 @@ You can see this tree with `pstree` or `ps auxf` on Linux.
 
 This is a critical concept that we'll explore deeply in the Virtual Memory section later: **every process thinks it has the entire memory to itself**.
 
-Process A and Process B both have memory at address `0x400000`, but they're different physical memory locations. The hardware (MMU) and OS (page tables) collaborate to create this illusion. This is called **virtual memory**, and it provides:
+Process A and Process B both have memory at address `0x400000`, but they're different physical memory locations. The hardware (**MMU** — Memory Management Unit, the CPU component that translates virtual addresses to physical addresses) and OS (**page tables** — data structures that define the virtual-to-physical address mapping for each process) collaborate to create this illusion. This is called **virtual memory**, and it provides:
 
 - **Isolation** — Process A can't read or corrupt Process B's memory
 - **Simplicity** — Each process sees a clean, linear address space starting from 0

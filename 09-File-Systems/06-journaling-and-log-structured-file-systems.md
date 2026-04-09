@@ -42,6 +42,8 @@ Before journaling, the solution was **fsck** (file system check): on boot after 
 
 The solution: before making changes to the actual filesystem structures, write a **log entry** (called a **journal entry** or **transaction**) describing what you are about to do.
 
+> **Analogy:** Think of journaling like **writing a to-do list before doing the work**. Before you rearrange furniture, you write down everything you plan to move and where it goes. If you get interrupted halfway through, you can check your list and finish the job -- or undo what you started. Without the list, you would have to walk through every room to figure out what is out of place.
+
 ```
 Normal write flow (without journal):
 

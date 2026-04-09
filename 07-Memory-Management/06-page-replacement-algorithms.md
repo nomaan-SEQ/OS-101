@@ -100,6 +100,8 @@ Neither is practical for a page replacement algorithm that runs on every memory 
 
 The **Clock algorithm** is a practical approximation of LRU that uses only the **reference bit** (already maintained by hardware in each page table entry).
 
+> **Analogy:** Imagine a security guard walking around a circular hallway of offices. Each office has a sign that flips to "visited" when someone enters. The guard sweeps around: if an office shows "visited," they flip the sign back to "not visited" and move on. If an office shows "not visited," that office has been idle since the last sweep -- time to reclaim it. The guard's steady sweep is the clock hand, and the signs are the reference bits.
+
 ### How It Works
 
 Arrange all frames in a circular list with a "clock hand" pointer. Each frame has a reference bit (R):

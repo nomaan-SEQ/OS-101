@@ -9,6 +9,8 @@ When a thread finds a lock already held, it has two choices:
 
 Neither is universally better. The right choice depends on how long you expect to wait and how many CPU cores you have.
 
+> **Analogy:** A mutex is like a doctor's waiting room -- you take a seat, close your eyes, and a nurse wakes you when the doctor is free. A spinlock is like standing at the door, repeatedly peeking in to ask "are you done yet?" The waiting room is efficient if the appointment is long, but if the doctor only needs 10 seconds, sitting down and getting called back costs more than just standing there.
+
 ## Mutex (Mutual Exclusion Lock)
 
 A mutex is the workhorse of synchronization. Lock it before entering a critical section, unlock it when you're done.
@@ -225,7 +227,7 @@ void transfer(Account *from, Account *to, int amount) {
 }
 ```
 
-**Fix:** Use RAII in C++ (lock_guard), try-finally in Java, or `defer` in Go.
+**Fix:** Use **RAII** (Resource Acquisition Is Initialization) in C++ (`lock_guard`), try-finally in Java, or `defer` in Go. RAII is a C++ pattern where acquiring a resource (like a lock) is tied to an object's lifetime -- the lock is released automatically when the object goes out of scope, even if an exception is thrown.
 
 ### 2. Double-Locking (Deadlock with Self)
 

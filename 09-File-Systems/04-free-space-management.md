@@ -115,6 +115,8 @@ This is very efficient when free blocks tend to cluster together (common after s
 Modern file systems combine counting with tree-based data structures for O(log n) lookup:
 
 ```
+A **B+ tree** is a self-balancing tree structure where all data lives in the leaf nodes and internal nodes contain only keys for navigation. It keeps all leaves at the same depth, guaranteeing O(log n) lookups, inserts, and deletes -- ideal for on-disk data structures because each level is one disk read.
+
                     B+ Tree of Free Extents
                     
                          [root]

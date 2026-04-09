@@ -156,6 +156,8 @@ Avoidance keeps us in the safe region.
 
 Named after a banker who needs to ensure they can always satisfy all customers' maximum needs with limited cash.
 
+> **Analogy:** Imagine a small-town bank with $100 in the vault and three customers who each declared a maximum loan amount upfront. Before approving any new loan request, the banker checks: "If I give this loan, will I still have enough cash left to let at least one customer finish their project, repay me, and then fund the next?" If the answer is no, the banker says "not right now" -- even if the cash is technically available -- because granting it could leave everyone stuck mid-project with no way to finish.
+
 **Given:**
 - `Available[j]`: instances of resource j currently available
 - `Max[i][j]`: max demand of thread i for resource j

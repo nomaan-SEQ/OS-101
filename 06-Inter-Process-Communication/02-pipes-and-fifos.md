@@ -107,6 +107,8 @@ Linux pipe buffer (default 64KB since kernel 2.6.11):
   - Writes > PIPE_BUF may interleave if multiple writers exist
   - Buffer full: writer blocks (or gets EAGAIN in non-blocking mode)
   - Buffer empty: reader blocks (or gets EAGAIN in non-blocking mode)
+  - EAGAIN is an error code meaning "try again" — the operation can't
+    complete right now without blocking, but it's not a real error.
 ```
 
 The **PIPE_BUF** atomicity guarantee matters when multiple processes write to the same pipe (e.g., a logging pipe). Writes up to PIPE_BUF bytes (4096 bytes on Linux) are guaranteed to be atomic — they won't interleave with writes from other processes.

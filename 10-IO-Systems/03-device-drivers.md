@@ -192,7 +192,7 @@ Sometimes you want drivers **outside** the kernel. Two frameworks enable this:
 
 ### VFIO (Virtual Function I/O)
 
-- Safely exposes device access to user space with IOMMU protection
+- Safely exposes device access to user space with **IOMMU** (I/O Memory Management Unit) protection. The IOMMU is hardware that does for device DMA what the MMU does for CPU memory access -- it translates device-visible addresses to physical addresses and restricts which memory regions a device can access, preventing a misbehaving device from corrupting arbitrary memory.
 - Used by: GPU passthrough in VMs, SR-IOV network cards
 - Essential for giving a VM direct access to hardware
 

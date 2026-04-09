@@ -123,6 +123,8 @@ Not all buses are equal. Devices are connected through a hierarchy based on spee
 |-----------------|-----------|-----------------|
 | PCIe 4.0 x16 | ~32 GB/s | GPUs, high-end NICs |
 | PCIe 4.0 x4 | ~8 GB/s | NVMe SSDs |
+
+**PCIe lanes** (the "x4", "x16" notation) refer to the number of parallel data links between the device and the CPU. Each lane is an independent send/receive pair. More lanes means proportionally more bandwidth: x4 has 4 lanes (8 GB/s on Gen 4), x16 has 16 lanes (32 GB/s on Gen 4). A device negotiates the number of lanes it needs based on its bandwidth requirements.
 | PCIe 5.0 x4 | ~16 GB/s | Next-gen NVMe SSDs |
 | SATA III | ~600 MB/s | SATA SSDs, HDDs |
 | USB 3.2 Gen 2 | ~1.25 GB/s | External SSDs, peripherals |

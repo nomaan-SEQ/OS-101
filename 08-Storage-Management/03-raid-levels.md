@@ -90,6 +90,8 @@ Data is striped across 3+ disks with **parity** distributed across all disks. Pa
 
 ### How XOR Parity Works
 
+**XOR (exclusive or)** is a bitwise operation that outputs 1 when inputs differ and 0 when they match. Its key property for RAID: if you XOR all blocks together (data + parity), any single missing block can be reconstructed by XORing the remaining blocks.
+
 ```
     A = 1010
     B = 1100

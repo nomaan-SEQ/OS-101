@@ -172,6 +172,8 @@ Bridges work on a single host. When containers on different hosts need to commun
 
 ### VXLAN (Virtual Extensible LAN)
 
+**VXLAN (Virtual Extensible LAN)** solves the problem of limited VLAN IDs (4,096 max) in large cloud environments. It encapsulates Layer 2 Ethernet frames inside UDP packets, creating overlay networks that can span across physical network boundaries. With a 24-bit VNI (VXLAN Network Identifier), it supports ~16 million isolated networks — enough for multi-tenant cloud environments where thousands of customers each need multiple isolated networks.
+
 VXLAN encapsulates Layer 2 Ethernet frames inside UDP packets, allowing a virtual L2 network to span across L3 boundaries:
 
 ```

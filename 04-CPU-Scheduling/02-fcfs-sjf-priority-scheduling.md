@@ -119,7 +119,11 @@ Averages:     7.0           3.0  (better than non-preemptive!)
 
 SJF is optimal but has one fatal flaw: **you can't know the next CPU burst length in advance**.
 
-The common workaround is exponential averaging — predict the next burst based on previous bursts:
+The common workaround is **exponential averaging** -- a prediction technique that blends the most recent observation with all prior history, giving more weight to recent behavior. Each new prediction is a weighted mix of what actually happened last time and what you predicted last time, so the estimate adapts to changing patterns without overreacting to a single outlier.
+
+> **Exponential averaging** predicts the next CPU burst length by blending the most recent actual burst with the previous prediction. Recent history is weighted more heavily, so the prediction adapts quickly to changing behavior -- like a weather forecast that trusts today's conditions more than last week's.
+
+Here is how it predicts the next burst based on previous bursts:
 
 ```
 tau(n+1) = alpha * t(n) + (1 - alpha) * tau(n)

@@ -26,6 +26,8 @@ This is clearly unacceptable. We need to short-circuit the page table walk for m
 
 The **TLB** is a small, fast cache inside the CPU that stores recent virtual-to-physical page translations. It's typically part of the MMU.
 
+> **Analogy:** Think of the TLB as a **speed dial** on a phone. The full page table is like a thick phone book -- it has every number, but looking someone up takes time. The TLB stores the numbers you call most often so you can reach them instantly. You only open the phone book (walk the page table) when the number isn't in your speed dial.
+
 ```
   CPU generates virtual address
          |
@@ -122,7 +124,8 @@ We introduced multi-level tables in file 03. Here's a deeper look at the x86-64 
 
 ```
   CR3 Register
-  (points to PML4 base)
+  (holds the physical address of the current process's PML4 table;
+   the OS loads a new value into CR3 on every context switch)
        |
        v
   +----------+         +----------+         +----------+         +----------+

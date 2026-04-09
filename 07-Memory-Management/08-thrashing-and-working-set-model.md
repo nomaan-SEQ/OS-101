@@ -76,6 +76,8 @@ Consider: Process A needs pages {1, 2, 3, 4, 5} to make progress. Process B need
 
 The **working set** of a process is the set of pages it has accessed within a recent time window (delta). It represents the memory the process is actively using right now.
 
+> **Analogy:** Think of a student working on a research paper at a desk. The working set is the stack of books and notes they currently have open and are actively referencing. They have many more books on the shelf, but only a few are needed right now. If the desk (RAM) is too small to hold all the open books, the student spends all their time walking to the shelf and back (page faults) instead of writing.
+
 ```
   W(t, delta) = set of pages accessed in the time interval [t - delta, t]
 ```

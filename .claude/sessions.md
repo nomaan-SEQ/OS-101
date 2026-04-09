@@ -106,3 +106,56 @@ approach: One folder at a time — root README.md first, then content folder-by-
 - All case study files include rich analogies for complex concepts and Linux↔Windows comparisons throughout
 - **THE REPOSITORY IS NOW COMPLETE: 17 folders, ~115 files, all content written**
 - All files follow consistent style: ASCII diagrams, comparison tables, real-world connections, interview Q&A
+
+## Session 7 — 2026-04-09
+
+### Completed
+- Full audit of all ~115 files across 17 sections for missing explanations, undefined terms, and complex topics lacking analogies
+- Applied ~70 inline fixes across all sections:
+
+#### Sections 00-02 (Introduction, System Calls, Processes)
+- MMU definition, GDT/IDT explanations, VFS definition, page tables forward references
+- KPTI expansion, IDT expansion in boot file, DKMS definition, eBPF verifier explanation
+- Top-half/bottom-half interrupt analogy (restaurant: waiter vs kitchen)
+- Process states analogy (university students), load average definition
+- Context switching analogy (chef cooking multiple dishes), MMU/COW clarification
+
+#### Sections 03-05 (Threads, CPU Scheduling, Concurrency)
+- GIL (Global Interpreter Lock) expanded definition
+- User-level threads analogy (shared phone line)
+- CPU burst analogy (sprints and rest periods), CFS parenthetical definition
+- Exponential averaging explanation (weather forecast analogy)
+- NUMA analogy (office building supply closets), interconnect definition
+- Mutex vs spinlock analogy (waiting room vs door), RAII definition
+- Semaphore analogy (parking lot with electronic sign)
+- Condition variable analogy (restaurant pager system)
+- Banker's Algorithm analogy (bank loan approval)
+
+#### Sections 06-10 (IPC, Memory, Storage, File Systems, I/O)
+- Shared memory analogy (whiteboard), ftok() explanation
+- SRAM vs DRAM explanation, CR3 register definition
+- Reference/dirty bit definitions, Clock algorithm analogy (security guard)
+- TLB analogy (speed dial), working set analogy (student's desk)
+- FTL and P/E cycles explanations, SCAN elevator analogy, XOR parity explanation
+- File allocation analogies (theater seats, treasure hunt, book index)
+- Inode indirection analogy (filing system), link count explanation
+- Journaling analogy (pilot's pre-flight checklist), B+ tree definition
+- PCIe lanes explanation, IOMMU definition, DMA analogy (delivery key)
+- Polling analogy (mailbox), interrupts analogy (doorbell)
+- EAGAIN explanation, epoll analogy (hand-raising vs checking each student)
+
+#### Sections 11-16 (Security, Virtualization, Networking, Modern, Case Studies)
+- ROP analogy (ransom note from newspaper), gadget definition
+- VMX root/non-root analogy (puppet theater)
+- pivot_root explanation, PSI definition, cgroups v1 vs v2 analogy (building managers)
+- NAPI hybrid interrupt/polling explanation
+- Nagle's algorithm analogy (bus stop batching), VXLAN motivation
+- Scatter-Gather DMA explanation
+- eBPF bytecode explanation, verifier static analysis detail, kprobes/uprobes definitions
+- Unikernel analogy (food truck vs restaurant)
+
+### Notes
+- No content was rewritten — all changes are inline additions (2-4 sentences each)
+- All analogies use consistent > **Analogy:** blockquote format
+- All key terms use **bold** formatting
+- Repository now has comprehensive explanations for all referenced concepts

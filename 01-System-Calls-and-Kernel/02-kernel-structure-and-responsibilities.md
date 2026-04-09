@@ -39,6 +39,8 @@ KERNEL RESPONSIBILITIES
 | **Networking** | TCP/IP stack, socket management, packet routing | `socket`, `bind`, `listen`, `accept`, `connect`, `send`, `recv` |
 | **Security & Access** | User/group permissions, capabilities, namespaces, SELinux | `setuid`, `setgid`, `capset`, `seccomp`, `unshare` |
 
+> **VFS (Virtual File System)** is an abstraction layer that lets the kernel support multiple file system types (ext4, NTFS, FAT32, etc.) through a single uniform interface. Your program calls the same `read()`/`write()` syscalls regardless of the underlying filesystem — VFS routes the call to the correct driver.
+
 ## Kernel Address Space vs User Address Space
 
 On a 64-bit Linux system, each process sees a virtual address space. The kernel reserves the upper portion for itself, and the lower portion is available to the user process:
@@ -189,7 +191,7 @@ This is why `dup2()` works -- it just copies a pointer in this table. And why `f
 
 ### Page Tables
 
-Page tables translate virtual addresses to physical addresses. They're a tree structure (4 levels on x86-64) that the MMU hardware walks on every memory access:
+**Page tables** are data structures the kernel uses to map virtual addresses to physical addresses — we cover them in depth in section 07 (Memory Management). They're a tree structure (4 levels on x86-64) that the MMU hardware walks on every memory access:
 
 ```
   Virtual Address --> [PML4] -> [PDPT] -> [PD] -> [PT] -> Physical Page

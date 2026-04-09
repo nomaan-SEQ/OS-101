@@ -34,6 +34,8 @@ Every other IPC mechanism copies data through the kernel: the sender writes data
 
 This makes shared memory ideal for **high-throughput, low-latency** data sharing. But there's a cost: since the kernel doesn't mediate access, **you must handle synchronization yourself**.
 
+> **Analogy:** Think of shared memory like a **shared whiteboard** in an office. Any team member can walk up and read or write on it without asking a manager (the kernel). It's the fastest way to share information, but if two people try to write in the same spot at the same time, you get a mess — hence the need for coordination rules.
+
 ## How It Works
 
 The lifecycle of shared memory:
@@ -60,6 +62,9 @@ The lifecycle of shared memory:
 // 1. Create a shared memory segment
 int shmid = shmget(key, size, IPC_CREAT | 0666);
 //   key:  identifier (use ftok() or IPC_PRIVATE)
+//   ftok() generates a unique IPC key from a file path and a project ID,
+//   so unrelated processes can agree on the same key without hardcoding it.
+//   Example: key_t key = ftok("/tmp/myapp", 'A');
 //   size: segment size in bytes
 
 // 2. Attach: map into this process's address space

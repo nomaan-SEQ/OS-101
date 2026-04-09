@@ -74,6 +74,8 @@ Historical note: this is not new. Exokernel (MIT, 1995) and Nemesis (Cambridge, 
 
 A **unikernel** takes the Library OS idea and produces a single-purpose machine image that runs directly on a hypervisor.
 
+> **Analogy:** A unikernel is like a food truck instead of a restaurant. A restaurant (traditional OS) has separate areas — kitchen, dining room, storage, offices — with walls and doors between them (privilege boundaries). A food truck strips all that away: one person, one open space, everything within arm's reach. It's extremely efficient for serving one menu, but you can't add a second chef or serve a different cuisine without building a whole new truck.
+
 ```
 Unikernel Stack:
 +----------------------------------+

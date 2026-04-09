@@ -83,7 +83,7 @@ Hardware:        ┌────┴─────┐     ┌────▼─�
   2 data copies + 2 context switches (one syscall: user→kernel→user)
 ```
 
-With hardware that supports scatter-gather DMA, the NIC can read directly from the page cache, eliminating even copy 2. This gets us down to a single DMA copy from disk and a DMA read from memory to NIC — truly minimal.
+With hardware that supports **scatter-gather DMA**, the NIC can read directly from the page cache, eliminating even copy 2. **Scatter-Gather DMA (SG-DMA)** allows the DMA engine to transfer data to/from multiple non-contiguous memory regions in a single operation. Instead of requiring data to be in one contiguous buffer, the NIC can gather data from several buffers (e.g., header in one location, payload in another) and send them as one packet — or scatter an incoming packet's parts to different buffers. This avoids expensive memory copies to assemble contiguous buffers. This gets us down to a single DMA copy from disk and a DMA read from memory to NIC -- truly minimal.
 
 **Who uses sendfile()**:
 - **Nginx**: Enabled by default (`sendfile on;` in config) for static file serving

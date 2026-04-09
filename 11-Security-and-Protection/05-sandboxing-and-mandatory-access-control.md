@@ -47,6 +47,10 @@ Policy rule:
   
   Translation: processes labeled httpd_t can read files labeled
                httpd_sys_content_t. That's it. Nothing else.
+
+This is called **type enforcement** -- the core mechanism of SELinux. Every access decision is based on the *type* label of the source process and the *type* label of the target resource.
+
+> **Analogy:** Type enforcement is like a hospital badge system. Doctors (type: doctor_t) can access patient records (type: patient_record_t), but cafeteria staff (type: cafe_t) cannot -- even if both are hospital employees. The badge type determines access, not the person's name.
 ```
 
 ### SELinux in Practice
@@ -148,6 +152,7 @@ seccomp-strict (original):
   Too restrictive for most applications.
 
 seccomp-bpf (modern):
+  **seccomp-bpf** stands for "secure computing mode with Berkeley Packet Filter." It repurposes BPF -- originally designed for filtering network packets -- as a programmable filter for system calls. The process loads a small BPF program into the kernel that inspects each syscall and decides what to do.
   Process installs a BPF filter program that decides per-syscall:
   - ALLOW: let the syscall proceed
   - KILL: terminate the process

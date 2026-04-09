@@ -22,7 +22,7 @@ Every file carries metadata alongside its actual data:
 | Permissions | Read/write/execute for owner/group/other | `rwxr-xr--` (754) |
 | Owner | User ID (UID) and group ID (GID) | `uid=1000, gid=1000` |
 | Timestamps | Created, modified, accessed | `ctime`, `mtime`, `atime` |
-| Link count | Number of hard links pointing to this file | `1` |
+| Link count | Number of directory entries (hard links) pointing to this file's inode. When the link count drops to 0 and no process has the file open, the OS frees the file's data blocks. | `1` |
 | Block pointers | Addresses of data blocks on disk | (stored in inode) |
 
 **Timestamp details on Linux:**

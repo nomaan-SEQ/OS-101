@@ -157,7 +157,7 @@ When containers need to communicate, Docker provides several network modes:
 | **bridge** (default) | Containers connect to a virtual bridge (`docker0`). Each gets a veth pair and private IP (172.17.x.x). NAT for external access. | Single-host container communication |
 | **host** | Container shares the host's network namespace. No network isolation. Container binds directly to host ports. | Maximum network performance, no isolation needed |
 | **none** | No network interfaces (except loopback). Complete network isolation. | Security-sensitive workloads |
-| **overlay** | VXLAN-based network spanning multiple Docker hosts. Containers on different machines can communicate as if on the same LAN. | Multi-host Docker Swarm or manual multi-host setups |
+| **overlay** | VXLAN-based network spanning multiple Docker hosts. Containers on different machines can communicate as if on the same LAN. **VXLAN (Virtual Extensible LAN)** works by encapsulating Layer 2 Ethernet frames inside UDP packets, allowing containers on different physical hosts to behave as if they are on the same local network -- essentially creating a "virtual cable" across machines over the existing IP network. | Multi-host Docker Swarm or manual multi-host setups |
 
 ```
 Bridge Networking:

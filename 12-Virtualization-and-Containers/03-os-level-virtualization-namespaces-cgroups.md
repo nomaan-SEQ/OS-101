@@ -100,7 +100,7 @@ This is critical for security. Without user namespaces, a container escape means
 
 ### Mount Namespace: Isolated Filesystem
 
-Each container gets its own mount tree. The container's root filesystem (`/`) is actually a specific directory on the host, made to look like a full filesystem using `pivot_root` or `chroot`:
+Each container gets its own mount tree. The container's root filesystem (`/`) is actually a specific directory on the host, made to look like a full filesystem using `pivot_root` or `chroot`. **`pivot_root`** changes the root filesystem of the calling process. Unlike `chroot` (which only changes the pathname resolution root), `pivot_root` actually swaps the mount tree — the old root becomes unmountable, providing stronger isolation. This is what container runtimes use to give each container its own filesystem view.
 
 ```
 Host filesystem:                    Container sees:
@@ -201,6 +201,10 @@ io.max = "8:0 rbps=10485760 wbps=5242880 riops=1000 wiops=500"
 | Default in modern distros | Legacy | Ubuntu 22.04+, Fedora 31+, RHEL 9+ |
 
 cgroups v2 replaced v1's confusing multi-hierarchy model with a single tree. Most modern systems use v2, but you'll still encounter v1 in older kernels and containers.
+
+> **Analogy:** cgroups v1 is like having separate managers for electricity, water, and internet in a building — each manages their resource independently with different rules and interfaces. cgroups v2 unifies them under a single building manager with one consistent hierarchy, making it much easier to set coordinated resource policies.
+
+**PSI (Pressure Stall Information)** is a cgroups v2 feature that measures how much time processes spend stalled — waiting for CPU, memory, or I/O resources. It provides percentages like "some" (at least one task stalled) and "full" (all tasks stalled), giving operators an early warning of resource contention before things break.
 
 ## Namespaces + Cgroups = Containers
 

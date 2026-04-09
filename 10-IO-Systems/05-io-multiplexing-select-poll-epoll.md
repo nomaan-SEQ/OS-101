@@ -106,6 +106,8 @@ poll is better than select (no FD limit, cleaner API), but still **O(n) per call
 
 The breakthrough. **Register once, get notified about ready FDs only.** No scanning.
 
+> **Analogy:** select/poll is like a teacher **calling roll for every student** to see who has a question -- slow when the class has 10,000 students. epoll is like a **notification system**: students press a button when they have a question, and only those names appear on the teacher's screen. The teacher never wastes time asking students who have nothing to say.
+
 ```c
 // 1. Create epoll instance
 int epfd = epoll_create1(0);

@@ -107,6 +107,8 @@ Notice: `connect()` on the client returns after the handshake completes. `accept
 
 ### Nagle's Algorithm and TCP_NODELAY
 
+> **Analogy:** Nagle's algorithm is like waiting at a bus stop to collect more passengers before departing. Instead of sending a bus (packet) for every single passenger (byte), the algorithm waits briefly to batch small writes into a single, fuller packet. This improves bandwidth efficiency but adds a small delay — which is why interactive applications (SSH, gaming) disable it with `TCP_NODELAY`.
+
 Nagle's algorithm buffers small outgoing packets and waits until either (a) enough data accumulates to fill a segment, or (b) an ACK arrives for previously sent data. This reduces the number of tiny packets on the wire.
 
 The problem: for request-response protocols (Redis, HTTP/2), Nagle adds latency. You send a small request, Nagle holds it waiting for more data, but there is no more data — you are waiting for the response.

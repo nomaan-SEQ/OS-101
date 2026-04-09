@@ -350,7 +350,7 @@ Neither approach is objectively better — they represent different design philo
 
 **How Docker starts containers**: `docker run nginx` ultimately calls `fork()` in the Docker daemon (or containerd), then in the child process applies namespaces (`clone()` with flags), sets up cgroups, pivots the filesystem root, and then calls `exec()` to run the container's entrypoint. The fork-exec pattern is the foundation of containers.
 
-**`posix_spawn()`**: Because fork+exec is so common, POSIX provides `posix_spawn()` which combines both steps with an attribute struct for customization. It's more efficient on systems where fork is expensive (e.g., systems without MMU/COW support). macOS prefers `posix_spawn` internally.
+**`posix_spawn()`**: Because fork+exec is so common, POSIX provides `posix_spawn()` which combines both steps with an attribute struct for customization. It's more efficient on systems where fork is expensive (e.g., embedded systems without an MMU for virtual memory or COW support). macOS prefers `posix_spawn` internally.
 
 **Pre-fork servers**: Web servers like Apache and Gunicorn use a "pre-fork" model: the master process starts up, loads configuration and code into memory, then forks N worker processes. Thanks to COW, the workers share the parent's code and read-only data in memory. This is why a Python app using Gunicorn with 4 workers doesn't use 4x the memory.
 

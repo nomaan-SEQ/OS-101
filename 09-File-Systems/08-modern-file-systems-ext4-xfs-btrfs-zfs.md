@@ -51,7 +51,7 @@ XFS was designed from the start for large files, large filesystems, and parallel
 
 | Feature | Details |
 |---------|---------|
-| B+ tree everything | Metadata (inodes, directories, free space) stored in B+ trees for O(log n) operations. |
+| B+ tree everything | Metadata (inodes, directories, free space) stored in **B+ trees** -- self-balancing tree structures where all data sits in leaf nodes and internal nodes are just navigation keys, guaranteeing O(log n) lookups with minimal disk reads per level. |
 | Allocation groups | Filesystem divided into independent allocation groups (AGs) that can be operated on in parallel. |
 | Delayed allocation | Like ext4, defers allocation for better layout. |
 | Online defragmentation | `xfs_fsr` reorganizes files while mounted. |

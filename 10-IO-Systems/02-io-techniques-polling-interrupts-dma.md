@@ -33,6 +33,8 @@ while (read_status_register(device) & BUSY_BIT) {
 data = read_data_register(device);
 ```
 
+> **Analogy:** Polling is like repeatedly checking your mailbox every 5 minutes to see if a package arrived. Simple, but you waste a lot of trips.
+
 **Pros:** Dead simple. No interrupt overhead. Lowest possible latency -- you get the data the instant it's ready.
 
 **Cons:** Burns CPU cycles doing nothing. If the device takes 10ms, the CPU wastes millions of cycles checking a register that says "not ready."
@@ -63,6 +65,8 @@ CPU                          Device Controller
  |  (CPU resumes previous work)     |
  v                                  v
 ```
+
+> **Analogy:** Interrupts are like a doorbell -- you go about your day and the delivery person rings when the package arrives. Much more efficient, but you still have to walk to the door each time.
 
 ### Interrupt Handling Steps
 
@@ -105,6 +109,8 @@ Linux NAPI (New API) for networking does exactly this: when packet rate is high,
 With polling and interrupts, the **CPU** moves every byte between device and memory. DMA removes the CPU from the data path entirely.
 
 A **DMA controller** (dedicated hardware) transfers data directly between the device and memory. The CPU just sets up the transfer and gets notified when it's done.
+
+> **Analogy:** Think of DMA like a **delivery service**. Without DMA, you (the CPU) must personally walk to the warehouse, pick up each box, and carry it home. With DMA, you hand the delivery company (DMA controller) a shipping address and order form, then go back to your desk and work. The delivery company moves the boxes on its own and rings the doorbell (interrupt) when everything has arrived.
 
 ```
 CPU                     DMA Controller           Device

@@ -42,6 +42,9 @@ The older API, but still widely supported and found in legacy codebases.
 // 1. Create or open a queue
 int msqid = msgget(key, IPC_CREAT | 0666);
 //   key: identifier (use ftok() to generate from a file path)
+//   ftok() converts a file path + project ID into a unique integer key,
+//   so unrelated processes can derive the same key independently.
+//   Example: key_t key = ftok("/tmp/myapp", 'M');
 //   Returns: queue ID
 
 // 2. Define a message structure

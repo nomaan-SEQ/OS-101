@@ -8,6 +8,8 @@ A file is a logical sequence of bytes, but a disk is a flat array of fixed-size 
 
 Each file occupies a **set of consecutive disk blocks**. The directory entry stores the starting block and the length.
 
+> **Analogy:** Contiguous allocation is like reserving a row of adjacent seats at a theater. You know exactly where all your seats are (fast to find any seat), but if the show sells out and you need more seats, there may be no adjacent empties left.
+
 ```
 Directory entry:  file.txt -> start: 5, length: 4
 
@@ -34,6 +36,8 @@ Disk blocks:
 ## Linked Allocation
 
 Each block contains a pointer to the **next block** in the file. The directory entry stores the first block.
+
+> **Analogy:** Linked allocation is like a scavenger hunt: each clue (block) tells you where the next clue is. You can always add more clues, but if you want the 50th clue, you have to follow all 49 previous ones to get there.
 
 ```
 Directory entry: file.txt -> first block: 5
@@ -85,7 +89,9 @@ Because the FAT is small enough to cache entirely in RAM, random access becomes 
 
 ## Indexed Allocation
 
-An **index block** (also called an "inode block" in this context) contains pointers to all of the file's data blocks:
+An **index block** (also called an "inode block" in this context) contains pointers to all of the file's data blocks.
+
+> **Analogy:** Indexed allocation is like a book's table of contents: one page lists where every chapter starts. You can jump to any chapter instantly, but the table of contents itself takes up a page even if the book is short.
 
 ```
 Directory entry: file.txt -> index block: 20

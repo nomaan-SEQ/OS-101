@@ -50,6 +50,8 @@ Think of eBPF as **JavaScript for the kernel**. Just as JavaScript lets you run 
                                                         +------------------+
 ```
 
+**eBPF bytecode** is a platform-independent instruction set (similar to JVM bytecode) designed for safe in-kernel execution. Programs are compiled from C (via Clang/LLVM) into this bytecode, which the kernel's JIT compiler then translates to native machine instructions for near-native performance. The bytecode format enables the verifier to analyze the program before it runs.
+
 ### The Verifier: Why eBPF Is Safe
 
 The kernel verifier is the key innovation. Before any eBPF program runs, the verifier statically analyzes it to guarantee:
@@ -59,7 +61,9 @@ The kernel verifier is the key innovation. Before any eBPF program runs, the ver
 - **No kernel crash**: the program cannot dereference null pointers or corrupt kernel state
 - **Bounded complexity**: programs have a maximum instruction count (currently ~1 million verified instructions)
 
-If the verifier rejects your program, it does not run. Period. This is what makes eBPF fundamentally safer than kernel modules.
+The verifier performs **static analysis** by walking every possible execution path. It tracks register states, ensures all memory accesses are within bounds, verifies that pointers aren't leaked, confirms loops are bounded (programs must terminate), and checks that only permitted kernel functions (helpers) are called. Programs that fail verification are rejected before they ever execute.
+
+This is what makes eBPF fundamentally safer than kernel modules.
 
 ---
 
@@ -105,11 +109,16 @@ User Space
 |---|---|---|
 | **kprobes** | Any kernel function entry/exit | Trace `tcp_connect()` to see all outbound connections |
 | **uprobes** | Any userspace function entry/exit | Trace `malloc()` calls in your application |
+
+**kprobes** (kernel probes) let you attach eBPF programs to virtually any kernel function entry/exit point — like placing a wiretap on internal kernel calls. **uprobes** (user probes) do the same for user-space functions. Together, they enable dynamic tracing without modifying source code or recompiling — you can observe function arguments, return values, and timing in production.
+
 | **tracepoints** | Predefined stable kernel events | Trace `sched:sched_switch` for context switch analysis |
 | **syscalls** | System call entry/exit | Audit which processes call `open()` on sensitive files |
 | **XDP** (eXpress Data Path) | Packet arrival at NIC, before kernel stack | DDoS mitigation, load balancing at line rate |
 | **TC** (Traffic Control) | Packet in/out of network stack | Packet manipulation, container networking |
 | **LSM** (Linux Security Modules) | Security-relevant operations | Runtime security policy enforcement |
+
+**LSM (Linux Security Modules)** is a framework of hook points placed at security-critical operations in the kernel (opening files, creating sockets, loading programs). SELinux and AppArmor implement their policies through LSM hooks. With eBPF attached to LSM hooks, you can write custom security policies that run in the kernel without building a full LSM module.
 | **cgroup** | Per-cgroup events | Container-level network/resource policy |
 
 ---

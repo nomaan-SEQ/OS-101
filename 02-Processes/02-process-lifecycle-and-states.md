@@ -51,6 +51,8 @@ Every OS textbook presents some version of this model. The names vary, but the c
 
 On a single-core system, **exactly one** process is Running at any time. On an N-core system, up to N processes can be Running simultaneously.
 
+> **Analogy:** Think of process states like students in a university. **New** = enrolled but not yet attending. **Ready** = in the classroom waiting to be called on. **Running** = presenting at the board. **Waiting** = in the library doing research. **Terminated** = graduated.
+
 ---
 
 ## State Transitions
@@ -197,7 +199,7 @@ From this, you can read: init is sleeping as a session leader, the nginx worker 
 
 ## Real-World Connection
 
-**Load average and process states**: When you see a load average of 5.0 on a 4-core machine, it means on average 5 processes are either Running (R) or in uninterruptible sleep (D). Processes in S state don't count. This is why high load average with low CPU usage usually means I/O bottleneck — processes are in D state waiting for disk.
+**Load average and process states**: **Load average** represents the average number of processes in the Running or uninterruptible sleep (D) state over 1, 5, and 15 minute intervals. A load average of 1.0 on a single-core system means the CPU is fully utilized; on a 4-core system, it means 25% utilized. So when you see a load average of 5.0 on a 4-core machine, it means on average 5 processes are either Running (R) or in D state. This is why high load average with low CPU usage usually means I/O bottleneck — processes are in D state waiting for disk.
 
 **Container health checks**: Kubernetes liveness probes check if a container's main process is still running and responsive. Understanding process states helps you diagnose why a pod gets restarted — the process might be stuck in D state (I/O hang), zombie-accumulated, or legitimately crashed.
 

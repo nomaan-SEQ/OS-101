@@ -114,7 +114,7 @@ Threads aren't always the answer. Choose processes when you need:
 | **Security isolation** | Processes can run as different users with different privileges. Threads share the same UID. |
 | **Memory isolation** | A memory corruption bug in one thread corrupts shared heap for all threads. Processes have separate address spaces. |
 | **Different programs** | You can't `exec()` a different program in just one thread -- it replaces the whole process. |
-| **Language constraints** | Python's GIL means threads can't achieve CPU parallelism. Use multiprocessing instead. |
+| **Language constraints** | Python's **GIL (Global Interpreter Lock)** -- a mutex in CPython that allows only one thread to execute Python bytecode at a time, even on multi-core systems -- means threads can't achieve true CPU parallelism. Python threads are useful for I/O-bound work (network calls, file reads) but not for CPU-bound work (number crunching, image processing). Use `multiprocessing` to get real parallelism across cores. |
 
 ## Process vs Thread: Full Comparison
 

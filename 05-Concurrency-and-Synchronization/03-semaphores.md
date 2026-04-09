@@ -11,6 +11,8 @@ The names P and V come from the Dutch words *proberen* (to try) and *verhogen* (
 
 Think of a semaphore as a **permit counter**. Each `wait()` takes a permit. Each `signal()` returns a permit. If no permits are available, you wait.
 
+> **Analogy:** A counting semaphore is like a parking lot with a fixed number of spots and an electronic sign showing available spaces. Each car entering decrements the count; each car leaving increments it. When the sign reads zero, arriving cars must wait at the entrance until someone drives out. A binary semaphore is a parking lot with exactly one spot.
+
 ## Two Types of Semaphores
 
 ### Binary Semaphore (Value: 0 or 1)

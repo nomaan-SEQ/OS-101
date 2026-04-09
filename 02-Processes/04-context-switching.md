@@ -6,6 +6,8 @@ A **context switch** is the act of saving one process's state and loading anothe
 
 Here's the uncomfortable truth: **a context switch does zero useful work**. No user computation happens during the switch. It's pure overhead — the price you pay for multitasking. Understanding this cost is what helps you make informed architecture decisions.
 
+> **Analogy:** A context switch is like a chef cooking multiple dishes. When the timer rings for dish B, the chef saves progress on dish A (notes where they left off, sets ingredients aside), then picks up dish B's recipe and ingredients. The "saving and restoring" takes time — that's the context switch overhead.
+
 ---
 
 ## What Triggers a Context Switch

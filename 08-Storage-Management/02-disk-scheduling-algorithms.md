@@ -75,7 +75,9 @@ Much better than FCFS! But notice: if new requests keep arriving near the head's
 
 ## SCAN (Elevator Algorithm)
 
-The head moves in one direction, serving all requests along the way, then **reverses** direction. Like an elevator that goes all the way up, then all the way down.
+The head moves in one direction, serving all requests along the way, then **reverses** direction.
+
+> **Analogy:** SCAN works exactly like an **elevator** in a building. The elevator picks a direction (up), stops at every requested floor along the way, rides to the top, then reverses and serves requests going down. C-SCAN is like an elevator that only picks people up while going up -- when it reaches the top floor, it drops express back to the ground floor without stopping, then starts upward again. This gives everyone a more predictable wait time.
 
 ```
     Head at 53, moving toward 199 (higher tracks).

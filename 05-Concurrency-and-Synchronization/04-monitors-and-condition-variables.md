@@ -70,6 +70,8 @@ Example: a consumer thread needs to wait until the buffer has items. It can't ju
 
 A **condition variable** provides exactly this: the ability to atomically **release a lock and sleep**, then **re-acquire the lock when woken up**.
 
+> **Analogy:** A condition variable is like a restaurant's pager system. You give your name to the host (register your interest), then sit in the waiting area instead of blocking the doorway (release the lock and sleep). When your table is ready, the host buzzes your pager (signal), and you walk up to the front desk to check in again (re-acquire the lock).
+
 ### Three Operations
 
 | Operation | What It Does |

@@ -113,6 +113,8 @@ SSDs store data in NAND flash memory — no moving parts, no seek time, no rotat
 
 ### NAND Cell Types
 
+**P/E cycles** (Program/Erase cycles) measure how many times a NAND cell can be written and erased before it wears out and can no longer reliably hold data. Each erase degrades the cell's oxide layer slightly, so fewer P/E cycles means shorter drive lifespan.
+
 | Type | Bits/Cell | Read Speed | Write Speed | Endurance (P/E Cycles) | Cost | Use Case |
 |------|-----------|------------|-------------|----------------------|------|----------|
 | SLC  | 1         | Fastest    | Fastest     | ~100,000             | $$$$  | Enterprise cache |
@@ -144,7 +146,7 @@ Flash memory has an asymmetry that fundamentally shapes SSD design:
 
 ### Flash Translation Layer (FTL)
 
-The SSD controller maintains a **Flash Translation Layer** — a mapping from logical block addresses (what the OS sees) to physical NAND locations. Instead of erasing and rewriting, it:
+The SSD controller maintains a **Flash Translation Layer (FTL)** — firmware inside the SSD controller that acts as a middleman, translating the logical block addresses the OS uses into the actual physical NAND page locations. This indirection is what lets the SSD write to new pages instead of overwriting in place. Instead of erasing and rewriting, it:
 
 1. Writes modified data to a **new empty page**
 2. Updates the mapping table

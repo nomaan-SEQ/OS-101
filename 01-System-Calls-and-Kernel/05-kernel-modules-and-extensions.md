@@ -217,6 +217,8 @@ KERNEL MODULES vs eBPF
 | **Use cases** | Device drivers, filesystems | Observability, networking, security |
 | **Deployment** | Compile per-kernel, insmod | Portable across kernel versions (CO-RE) |
 
+> **The eBPF verifier** is a static analyzer built into the kernel that checks every BPF program before it loads. It ensures no infinite loops, no out-of-bounds memory access, and no unsafe operations. This is what makes it safe to run user-supplied code in kernel space.
+
 ### What eBPF Is Used For
 
 - **Observability**: Tools like `bpftrace`, Cilium's Hubble, and Pixie use eBPF to trace syscalls, function calls, and network packets with near-zero overhead
@@ -267,7 +269,7 @@ The mapping from device IDs to module names lives in the `modules.alias` file, g
 
 ## Real-World Connection
 
-- **NVIDIA GPU drivers** are distributed as kernel modules. This is why NVIDIA driver updates sometimes break after a kernel upgrade -- the module was compiled for the old kernel's internal API. DKMS (Dynamic Kernel Module Support) automates recompilation of third-party modules when the kernel is updated.
+- **NVIDIA GPU drivers** are distributed as kernel modules. This is why NVIDIA driver updates sometimes break after a kernel upgrade -- the module was compiled for the old kernel's internal API. **DKMS (Dynamic Kernel Module Support)** automatically recompiles out-of-tree kernel modules when the kernel is updated, so drivers don't break after kernel upgrades.
 
 - **Container security**: In Kubernetes, tools like Falco use eBPF to monitor every syscall in every container without modifying the containers themselves. This is the foundation of runtime security monitoring in cloud-native environments.
 

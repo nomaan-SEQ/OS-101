@@ -187,7 +187,9 @@ CFI is implemented by compilers (Clang CFI, MSVC CFG) and adds runtime checks be
 
 ## Return-Oriented Programming (ROP)
 
-ROP bypasses DEP by reusing existing executable code instead of injecting new code:
+ROP bypasses DEP by reusing existing executable code instead of injecting new code.
+
+> **Analogy:** ROP is like composing a ransom note by cutting words from a newspaper. The attacker doesn't write new instructions — they find useful snippets ("gadgets") already in the program's code and chain them together to spell out a malicious action. Since the code was already there and trusted, defenses that block new code injection (DEP/NX) are bypassed.
 
 ```
 Normal execution:              ROP attack:
@@ -215,6 +217,8 @@ Each gadget does a small operation, then RET pops the next gadget address.
 The attacker builds a program from fragments of existing code.
 No injected code needed -- DEP is irrelevant.
 ```
+
+A **gadget** is a short sequence of existing instructions ending in a `ret` instruction. Each gadget does one small thing (load a register, make a syscall), and the attacker chains gadgets by placing their addresses on the stack so each `ret` jumps to the next gadget.
 
 **Defense:** ASLR (randomizes gadget addresses), CFI (validates return targets), shadow stacks (separate protected stack for return addresses).
 

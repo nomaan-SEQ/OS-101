@@ -125,7 +125,9 @@ Averages:          10.33          5.67         5.67
 
 ## CPU Bursts and I/O Bursts
 
-Processes don't use the CPU continuously. They alternate between CPU computation and I/O operations in a characteristic pattern:
+> **Analogy:** Think of CPU bursts like sprints and I/O bursts like rest periods. A process alternates between sprinting (computing) and resting (waiting for I/O). CPU-bound processes sprint for long stretches; I/O-bound processes take many short sprints with frequent rests.
+
+A **CPU burst** is a continuous stretch of time a process spends executing instructions on the CPU before it pauses to wait for I/O or yields control. Processes don't use the CPU continuously. They alternate between CPU computation and I/O operations in a characteristic pattern:
 
 ```
 A typical process lifecycle:
@@ -186,7 +188,7 @@ Dispatch latency is pure overhead — no useful work is done during a context sw
 
 ## Real-World Connection
 
-- **Linux** uses preemptive scheduling with the CFS scheduler. You can observe scheduling behavior with `perf sched` and see context switch counts with `vmstat`.
+- **Linux** uses preemptive scheduling with the CFS (Completely Fair Scheduler -- Linux's default scheduler that allocates CPU time proportionally, like dividing a pie fairly among diners; covered in detail in `06-linux-cfs-and-real-world-schedulers.md`) scheduler. You can observe scheduling behavior with `perf sched` and see context switch counts with `vmstat`.
 - **Docker containers** share the host's scheduler. The `--cpu-shares` and `--cpus` flags in Docker map to scheduler parameters (CFS bandwidth control).
 - **Cloud VMs** on AWS/GCP are scheduled by a hypervisor. "Noisy neighbor" problems happen when the hypervisor's scheduler gives your VM less CPU time because another VM on the same host is CPU-bound.
 - **Node.js** is an interesting case: it uses cooperative scheduling in user space (event loop) on top of the OS's preemptive scheduler. A long-running synchronous function blocks the event loop because Node won't preempt it.

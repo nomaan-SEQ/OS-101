@@ -130,6 +130,8 @@ The scheduler must weigh the cost of cache misses against the cost of imbalanced
 
 ## NUMA-Aware Scheduling
 
+> **Analogy:** NUMA is like an office building where each floor has its own supply closet. Workers on floor 2 can grab supplies from their own closet instantly, but getting supplies from floor 5's closet means taking the elevator -- it works, but it's slower. NUMA-aware scheduling keeps processes on the "floor" closest to their data.
+
 On large multi-socket systems, memory access time depends on which CPU is accessing it. This is **NUMA (Non-Uniform Memory Access)**.
 
 ```
@@ -153,7 +155,7 @@ Core 0 accessing Socket 1's memory: ~150ns (remote -- nearly 2x slower!)
 
 ### Why NUMA Matters for Scheduling
 
-If a process allocated its memory on Socket 0, but the scheduler moves it to Core 2 (Socket 1), every memory access crosses the interconnect and takes nearly twice as long.
+If a process allocated its memory on Socket 0, but the scheduler moves it to Core 2 (Socket 1), every memory access crosses the **interconnect** -- the high-speed bus connecting CPU sockets. Crossing it to access another socket's memory adds latency (typically 1.5-2x slower than local access) -- and takes nearly twice as long.
 
 ```
 Good NUMA scheduling:

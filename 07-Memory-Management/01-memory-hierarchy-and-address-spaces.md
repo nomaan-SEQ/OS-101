@@ -151,7 +151,7 @@ A virtual address is what a process uses — it's the address the CPU generates 
 
 **Q: Why do we need a memory hierarchy? Why not just use the fastest storage for everything?**
 
-Cost and physics. SRAM (used in caches) is about 100x more expensive per bit than DRAM, and DRAM is about 100x more expensive than flash storage. You physically can't build a system with terabytes of SRAM. The hierarchy works because of locality — programs tend to reuse data they've recently accessed, so keeping a small amount of hot data in fast cache captures most accesses.
+Cost and physics. **SRAM** (Static RAM, used in caches) stores each bit using a circuit of six transistors, making it extremely fast but expensive and bulky. **DRAM** (Dynamic RAM, used for main memory) stores each bit as a charge in a tiny capacitor, making it much denser and cheaper but slower -- and it needs constant refreshing because the capacitors leak charge. SRAM is about 100x more expensive per bit than DRAM, and DRAM is about 100x more expensive than flash storage. You physically can't build a system with terabytes of SRAM. The hierarchy works because of locality — programs tend to reuse data they've recently accessed, so keeping a small amount of hot data in fast cache captures most accesses.
 
 **Q: What is the MMU and why is it in hardware?**
 

@@ -166,6 +166,8 @@ For the modern `syscall` instruction, the CPU bypasses the IDT entirely and uses
 
 Hardware interrupts need to be handled **fast** because while an interrupt handler runs, that CPU can't do other work (and often, other interrupts on that line are blocked). The solution: split the work.
 
+> **Analogy:** Think of it like a restaurant. The **top half** is the waiter who quickly jots down your order — fast, can't leave the floor. The **bottom half** is the kitchen that actually prepares the meal — can take longer and runs on its own schedule.
+
 ```
 INTERRUPT HANDLING: TWO HALVES
 ===============================

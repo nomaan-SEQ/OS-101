@@ -62,6 +62,8 @@ CPU Privilege Modes WITH VT-x:
 - **VMX root mode**: where the hypervisor runs. Full hardware access. All instructions work normally.
 - **VMX non-root mode**: where the guest runs. The guest OS runs in Ring 0 — it thinks it has full privilege — but the CPU intercepts sensitive operations and exits to the hypervisor.
 
+> **Analogy:** VMX root and non-root modes are like a puppet theater. The hypervisor (puppeteer, VMX root) has full control of the stage. The guest OS (puppet, VMX non-root) believes it's performing independently, but whenever it tries to do something privileged (like accessing hardware), the strings pull it back to the puppeteer (VM exit) who handles it and returns control (VM entry).
+
 This solves the x86 problem elegantly: the guest runs at Ring 0 (so all instructions behave as the guest expects), but the CPU has a hardware mechanism to trap to the hypervisor when needed.
 
 ### The VM Entry / VM Exit Cycle

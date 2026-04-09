@@ -232,7 +232,7 @@ A flat page table for a 64-bit address space would require petabytes of memory �
 
 **Q: What happens during address translation with a 4-level page table?**
 
-The virtual address is split into 4 index fields (9 bits each) plus a 12-bit offset. The CPU starts at the PML4 table (pointed to by the CR3 register), uses the first 9 bits to index into it, follows the pointer to the next-level table, repeats for all 4 levels, and finally gets the physical frame number from the PTE. It combines this with the offset to form the physical address. Without a TLB hit, this requires 4 extra memory accesses — which is why the TLB is critical.
+The virtual address is split into 4 index fields (9 bits each) plus a 12-bit offset. The CPU starts at the PML4 table (pointed to by the **CR3 register** -- a special CPU register that holds the physical base address of the current process's top-level page table; the OS updates CR3 on every context switch), uses the first 9 bits to index into it, follows the pointer to the next-level table, repeats for all 4 levels, and finally gets the physical frame number from the PTE. It combines this with the offset to form the physical address. Without a TLB hit, this requires 4 extra memory accesses — which is why the TLB is critical.
 
 ---
 

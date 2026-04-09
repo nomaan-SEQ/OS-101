@@ -83,6 +83,8 @@ We introduced rings in `00-Introduction`. Here's the full picture:
 
 Rings 1 and 2 are mostly unused. However, **Ring -1** (VMX root mode) exists for hypervisors, and **Ring -2** (SMM) exists for firmware. These matter for virtualization and secure boot.
 
+> **Analogy:** Think of VMX root mode as a "building manager" who operates behind the scenes. The OS kernel (ring 0) thinks it controls the entire building, but the hypervisor (ring -1) secretly intercepts certain actions -- like opening locked doors -- and decides whether to allow, deny, or fake the result. The tenants (ring 3 apps) and even the floor manager (ring 0 kernel) don't realize the building manager exists.
+
 ### How Ring Transitions Work
 
 ```
